@@ -16,21 +16,68 @@ Desarrollado con Django REST Framework + React + Tailwind CSS.
 
 ## Arranque rápido
 
+### Terminal 1: Backend Django
+
 ```bash
-# 1. Backend
-cd backend
-cp .env.example .env
-python -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
+# Carpeta: huella_carbono/backend/
+cd huella_carbono/backend
+
+# Activar entorno virtual
+.\venv\Scripts\activate           # Windows
+# source venv/bin/activate        # macOS/Linux
+
+# Instalar dependencias (si no lo has hecho)
 pip install -r requirements.txt
+
+# Crear y aplicar migraciones (primera vez)
 python manage.py makemigrations
 python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver                         # http://localhost:8000
 
-# 2. Frontend (otra terminal)
-cd frontend
+# Crear superusuario (primera vez)
+python manage.py createsuperuser
+
+# Iniciar servidor
+python manage.py runserver
+```
+
+**Backend disponible en:** http://localhost:8000
+- Swagger API: http://localhost:8000/api/docs/
+- Admin Django: http://localhost:8000/admin/
+
+### Terminal 2: Frontend React
+
+```bash
+# Carpeta: huella_carbono/frontend/
+cd huella_carbono/frontend
+
+# Instalar dependencias (si no lo has hecho)
 npm install
-npm run dev                                        # http://localhost:3000
+
+# Iniciar servidor de desarrollo
+npm run dev
+```
+
+**Frontend disponible en:** http://localhost:3000
+
+## Solución de problemas
+
+Si al ejecutar `python manage.py runserver` aparece un error como `No module named 'django'` o falla la instalación de dependencias por incompatibilidad con la versión de Python, recrea el entorno virtual con Python 3.12:
+
+```powershell
+# Primero, deactivate el venv actual
+deactivate
+
+# Eliminar el venv viejo
+Remove-Item -Recurse -Force venv
+
+# Crear nuevo venv con Python 3.12
+py -3.12 -m venv venv
+
+# Activar el nuevo venv
+.\venv\Scripts\Activate.ps1
+
+# Instalar dependencias
+pip install -r requirements.txt
 ```
 
 ## Documentación API
@@ -72,8 +119,14 @@ npm run dev                                        # http://localhost:3000
 - Isaac Chaves       — Quality Manager
 - Paula Ferreira     — Configuration Manager
 
+**Credenciales Django Admin**
+
 Email: santi@gmail.com
+
 Nombre de usuario: santiago
+
 Nombre: Santiago
+
 Apellidos: Zapata
+
 Password: santiago
