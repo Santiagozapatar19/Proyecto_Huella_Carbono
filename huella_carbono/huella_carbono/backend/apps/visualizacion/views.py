@@ -1,7 +1,9 @@
-from rest_framework import viewsets, status, permissions
+from rest_framework import viewsets, status, permissions, serializers
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.utils import timezone
+from drf_spectacular.utils import extend_schema, extend_schema_view
+from drf_spectacular.types import OpenApiTypes
 from apps.recoleccion.models import Periodo
 from .models import Anomalia
 from .serializers import AnomaliaSerializer, AnomaliaUpdateSerializer
@@ -12,12 +14,21 @@ from .analisis import (
 )
 
 
+@extend_schema_view(
+    tendencia=extend_schema(responses=OpenApiTypes.OBJECT),
+    emision_por_fuente=extend_schema(responses=OpenApiTypes.OBJECT),
+    energia_por_sede=extend_schema(responses=OpenApiTypes.OBJECT),
+    residuos_por_tipo=extend_schema(responses=OpenApiTypes.OBJECT),
+    costos=extend_schema(responses=OpenApiTypes.OBJECT),
+    resumen_general=extend_schema(responses=OpenApiTypes.OBJECT),
+)
 class TableroViewSet(viewsets.ViewSet):
     """
     HU-06: Endpoints de datos para los tableros de visualización.
     Todos son GET, sin modelo propio (calculado en tiempo real desde los datos).
     """
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = serializers.Serializer
 
     @action(detail=False, methods=['get'])
     def tendencia(self, request):

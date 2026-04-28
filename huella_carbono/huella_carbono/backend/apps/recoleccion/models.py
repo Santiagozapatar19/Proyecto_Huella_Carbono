@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from decimal import Decimal
 from apps.usuarios.models import Usuario
 
 
@@ -35,8 +36,8 @@ class RegistroEnergia(models.Model):
     tipo_energia    = models.CharField(max_length=20, choices=TipoEnergia.choices)
     sede            = models.CharField(max_length=100)
     area            = models.CharField(max_length=100, blank=True)
-    consumo_kwh     = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(0)])
-    costo_cop       = models.DecimalField(max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], null=True, blank=True)
+    consumo_kwh     = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(Decimal('0'))])
+    costo_cop       = models.DecimalField(max_digits=14, decimal_places=2, validators=[MinValueValidator(Decimal('0'))], null=True, blank=True)
     proveedor       = models.CharField(max_length=100, blank=True)
     numero_factura  = models.CharField(max_length=50, blank=True)
     observaciones   = models.TextField(blank=True)
@@ -78,7 +79,7 @@ class RegistroCombustible(models.Model):
     tipo_vehiculo     = models.CharField(max_length=20, choices=TipoVehiculo.choices, blank=True)
     placa_o_equipo    = models.CharField(max_length=50, blank=True)
     area              = models.CharField(max_length=100, blank=True)
-    cantidad_litros   = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    cantidad_litros   = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0'))])
     costo_cop         = models.DecimalField(max_digits=14, decimal_places=2, null=True, blank=True)
     proveedor         = models.CharField(max_length=100, blank=True)
     observaciones     = models.TextField(blank=True)
@@ -101,7 +102,7 @@ class RegistroLogistica(models.Model):
     origen               = models.CharField(max_length=150)
     destino              = models.CharField(max_length=150)
     tipo_transporte      = models.CharField(max_length=50)
-    distancia_km         = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    distancia_km         = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0'))])
     peso_toneladas       = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
     numero_viajes        = models.PositiveIntegerField(default=1)
     proveedor_logistico  = models.CharField(max_length=100, blank=True)
@@ -135,7 +136,7 @@ class RegistroComprasConsumibles(models.Model):
     categoria       = models.CharField(max_length=30, choices=CategoriaConsumible.choices)
     descripcion     = models.CharField(max_length=200)
     proveedor       = models.CharField(max_length=150, blank=True)
-    cantidad        = models.DecimalField(max_digits=12, decimal_places=3, validators=[MinValueValidator(0)])
+    cantidad        = models.DecimalField(max_digits=12, decimal_places=3, validators=[MinValueValidator(Decimal('0'))])
     unidad          = models.CharField(max_length=30)
     peso_total_kg   = models.DecimalField(max_digits=12, decimal_places=3, null=True, blank=True)
     costo_cop       = models.DecimalField(max_digits=14, decimal_places=2, null=True, blank=True)
@@ -181,7 +182,7 @@ class RegistroResiduos(models.Model):
     descripcion            = models.CharField(max_length=200, blank=True)
     area                   = models.CharField(max_length=100, blank=True)
     sede                   = models.CharField(max_length=100, blank=True)
-    cantidad_kg            = models.DecimalField(max_digits=12, decimal_places=3, validators=[MinValueValidator(0)])
+    cantidad_kg            = models.DecimalField(max_digits=12, decimal_places=3, validators=[MinValueValidator(Decimal('0'))])
     metodo_disposicion     = models.CharField(max_length=25, choices=MetodoDisposicion.choices)
     gestor_externo         = models.CharField(max_length=150, blank=True)
     costo_disposicion_cop  = models.DecimalField(max_digits=14, decimal_places=2, null=True, blank=True)

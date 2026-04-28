@@ -14,7 +14,7 @@ class PeriodoSerializer(serializers.ModelSerializer):
         fields = ['id', 'anio', 'mes', 'cerrado', 'label', 'fecha_creacion']
         read_only_fields = ['id', 'fecha_creacion']
 
-    def get_label(self, obj):
+    def get_label(self, obj) -> str:
         meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
         return f'{meses[obj.mes - 1]} {obj.anio}'
 

@@ -134,6 +134,11 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Sistema de gestión y análisis de huella de carbono empresarial',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'ENUM_NAME_OVERRIDES': {
+        'PlanReduccionEstadoEnum': 'apps.reduccion.models.PlanReduccion.Estado',
+        'IniciativaEstadoEnum': 'apps.reduccion.models.Iniciativa.Estado',
+        'AnomaliaEstadoEnum': 'apps.visualizacion.models.Anomalia.EstadoAnomalia',
+    },
 }
 
 # ─── Internacionalización ─────────────────────────────────────────

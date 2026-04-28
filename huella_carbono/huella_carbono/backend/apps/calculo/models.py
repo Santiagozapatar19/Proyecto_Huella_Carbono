@@ -28,7 +28,7 @@ class ResultadoCalculo(models.Model):
         return f'Cálculo {self.periodo} → {self.total_tco2e} tCO₂e'
 
     @property
-    def resumen_fuentes(self):
+    def resumen_fuentes(self) -> list[dict[str, float]]:
         return [
             {'fuente': 'Energía',     'tco2e': float(self.energia_tco2e)},
             {'fuente': 'Combustible', 'tco2e': float(self.combustible_tco2e)},

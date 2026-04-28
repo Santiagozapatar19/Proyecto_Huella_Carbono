@@ -71,3 +71,9 @@ npm run dev                                        # http://localhost:3000
 - Samuel Lasso       — Planning Manager
 - Isaac Chaves       — Quality Manager
 - Paula Ferreira     — Configuration Manager
+
+Email: santi@gmail.com
+Nombre de usuario: santiago
+Nombre: Santiago
+Apellidos: Zapata
+Password: santiago

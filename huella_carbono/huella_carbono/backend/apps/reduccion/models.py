@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from decimal import Decimal
 from apps.usuarios.models import Usuario
 
 
@@ -17,7 +18,7 @@ class PlanReduccion(models.Model):
     anio_objetivo   = models.PositiveIntegerField()
     meta_reduccion_pct = models.DecimalField(
         max_digits=5, decimal_places=2,
-        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        validators=[MinValueValidator(Decimal('0')), MaxValueValidator(Decimal('100'))],
         help_text='% de reducción objetivo respecto a la línea base'
     )
     linea_base_tco2e= models.DecimalField(
@@ -41,15 +42,15 @@ class PlanReduccion(models.Model):
         return f'{self.nombre} ({self.anio_objetivo})'
 
     @property
-    def meta_tco2e(self):
+    def meta_tco2e(self) -> float:
         return float(self.linea_base_tco2e) * float(self.meta_reduccion_pct) / 100
 
     @property
-    def total_iniciativas(self):
+    def total_iniciativas(self) -> int:
         return self.iniciativas.count()
 
     @property
-    def iniciativas_completadas(self):
+    def iniciativas_completadas(self) -> int:
         return self.iniciativas.filter(estado='completada').count()
 
 
@@ -84,7 +85,7 @@ class Iniciativa(models.Model):
     )
     costo_estimado_cop = models.DecimalField(
         max_digits=14, decimal_places=0,
-        validators=[MinValueValidator(0)],
+        validators=[MinValueValidator(Decimal('0'))],
         null=True, blank=True
     )
     factibilidad    = models.PositiveIntegerField(
@@ -93,7 +94,7 @@ class Iniciativa(models.Model):
     )
     reduccion_estimada_tco2e = models.DecimalField(
         max_digits=10, decimal_places=4,
-        validators=[MinValueValidator(0)],
+        validators=[MinValueValidator(Decimal('0'))],
         help_text='tCO₂e que se espera reducir'
     )
 
@@ -121,12 +122,12 @@ class Iniciativa(models.Model):
         return f'{self.nombre} [{self.get_estado_display()}]'
 
     @property
-    def score_priorizacion(self):
+    def score_priorizacion(self) -> int:
         """Score simple: impacto * factibilidad (mayor = más prioritaria)."""
         return self.impacto * self.factibilidad
 
     @property
-    def avance_pct(self):
+    def avance_pct(self) -> int:
         if self.estado == 'completada':
             return 100
         if self.estado == 'pendiente':

@@ -9,6 +9,9 @@ from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from drf_spectacular.utils import extend_schema, inline_serializer
+from drf_spectacular.types import OpenApiTypes
+from rest_framework import serializers
 from apps.recoleccion.models import Periodo
 from apps.calculo.models import ResultadoCalculo
 from apps.reduccion.models import PlanReduccion, Iniciativa
@@ -22,6 +25,7 @@ class ReporteHuellaCSV(APIView):
     """
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(responses={200: OpenApiTypes.BINARY})
     def get(self, request):
         response = HttpResponse(content_type='text/csv; charset=utf-8')
         response['Content-Disposition'] = f'attachment; filename="huella_carbono_{date.today()}.csv"'
@@ -51,6 +55,7 @@ class ReporteIniciativasCSV(APIView):
     """
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(responses={200: OpenApiTypes.BINARY})
     def get(self, request):
         response = HttpResponse(content_type='text/csv; charset=utf-8')
         response['Content-Disposition'] = f'attachment; filename="iniciativas_{date.today()}.csv"'
@@ -86,6 +91,7 @@ class ReporteAnomaliasCsv(APIView):
     """
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(responses={200: OpenApiTypes.BINARY})
     def get(self, request):
         response = HttpResponse(content_type='text/csv; charset=utf-8')
         response['Content-Disposition'] = f'attachment; filename="anomalias_{date.today()}.csv"'
@@ -116,6 +122,7 @@ class ReporteEjecutivoPDF(APIView):
     """
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(responses={200: OpenApiTypes.BINARY})
     def get(self, request):
         try:
             from reportlab.lib.pagesizes import letter, A4
@@ -268,6 +275,16 @@ class ResumenReportes(APIView):
     """
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(
+        responses=inline_serializer(
+            name='ResumenReportesResponse',
+            fields={
+                'reportes': serializers.ListField(
+                    child=serializers.DictField(),
+                )
+            },
+        )
+    )
     def get(self, request):
         return Response({
             'reportes': [

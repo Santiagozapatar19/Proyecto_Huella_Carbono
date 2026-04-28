@@ -2,6 +2,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
+from drf_spectacular.utils import extend_schema
 from .models import Usuario
 from .serializers import UsuarioSerializer, UsuarioCreateSerializer, CustomTokenObtainPairSerializer
 
@@ -22,10 +23,12 @@ class PerfilView(APIView):
     """Ver y actualizar el perfil del usuario autenticado."""
     permission_classes = [permissions.IsAuthenticated]
 
+    @extend_schema(responses=UsuarioSerializer)
     def get(self, request):
         serializer = UsuarioSerializer(request.user)
         return Response(serializer.data)
 
+    @extend_schema(request=UsuarioSerializer, responses=UsuarioSerializer)
     def patch(self, request):
         serializer = UsuarioSerializer(request.user, data=request.data, partial=True)
         if serializer.is_valid():

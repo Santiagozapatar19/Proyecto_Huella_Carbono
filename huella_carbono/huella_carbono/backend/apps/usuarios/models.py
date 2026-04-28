@@ -30,8 +30,8 @@ class Usuario(AbstractUser):
         return f'{self.get_full_name()} ({self.email})'
 
     @property
-    def nombre_completo(self):
+    def nombre_completo(self) -> str:
         return self.get_full_name()
 
-    def tiene_permiso_escritura(self):
+    def tiene_permiso_escritura(self) -> bool:
         return self.rol in [Rol.ADMIN, Rol.ANALISTA, Rol.RESPONSABLE_AREA]
