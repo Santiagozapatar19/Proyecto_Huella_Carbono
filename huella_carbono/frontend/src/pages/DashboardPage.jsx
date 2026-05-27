@@ -29,7 +29,7 @@ export default function DashboardPage() {
         <h1 className="text-2xl font-bold text-carbon-800">
           Hola, {usuario?.first_name || 'usuario'} 👋
         </h1>
-        <p className="text-carbon-200 mt-1 text-sm">Resumen del sistema de gestión de huella de carbono</p>
+        <p className="text-carbon-800 mt-1 text-sm">Resumen del sistema de gestión de huella de carbono</p>
       </div>
 
       {/* KPI Cards */}
@@ -40,15 +40,15 @@ export default function DashboardPage() {
             <Leaf className="w-5 h-5 text-green-600" />
           </div>
           <div>
-            <p className="text-xs text-carbon-200 font-medium">Última huella calculada</p>
+            <p className="text-xs text-carbon-800 font-medium">Última huella calculada</p>
             {isLoading ? <div className="h-6 w-24 bg-carbon-100 animate-pulse rounded mt-1" /> : (
               <>
                 <p className="text-xl font-bold text-carbon-800">
                   {resumen?.ultimo_calculo?.periodo
-                    ? <>{fmt(resumen.ultimo_calculo.total_tco2e)} <span className="text-xs font-normal text-carbon-200">tCO₂e</span></>
+                    ? <>{fmt(resumen.ultimo_calculo.total_tco2e)} <span className="text-xs font-normal text-carbon-800">tCO₂e</span></>
                     : '—'}
                 </p>
-                <p className="text-xs text-carbon-200">{resumen?.ultimo_calculo?.periodo || 'Sin cálculos aún'}</p>
+                <p className="text-xs text-carbon-800">{resumen?.ultimo_calculo?.periodo || 'Sin cálculos aún'}</p>
               </>
             )}
           </div>
@@ -59,7 +59,7 @@ export default function DashboardPage() {
             <Database className="w-5 h-5 text-blue-600" />
           </div>
           <div>
-            <p className="text-xs text-carbon-200 font-medium">Períodos registrados</p>
+            <p className="text-xs text-carbon-800 font-medium">Períodos registrados</p>
             {isLoading ? <div className="h-6 w-12 bg-carbon-100 animate-pulse rounded mt-1" /> : (
               <p className="text-xl font-bold text-carbon-800">{resumen?.periodos_registrados ?? '—'}</p>
             )}
@@ -71,7 +71,7 @@ export default function DashboardPage() {
             <AlertTriangle className={`w-5 h-5 ${(resumen?.anomalias_activas || 0) > 0 ? 'text-red-600' : 'text-green-600'}`} />
           </div>
           <div>
-            <p className="text-xs text-carbon-200 font-medium">Anomalías activas</p>
+            <p className="text-xs text-carbon-800 font-medium">Anomalías activas</p>
             {isLoading ? <div className="h-6 w-12 bg-carbon-100 animate-pulse rounded mt-1" /> : (
               <p className={`text-xl font-bold ${(resumen?.anomalias_activas || 0) > 0 ? 'text-red-600' : 'text-carbon-800'}`}>
                 {resumen?.anomalias_activas ?? '—'}
@@ -85,7 +85,7 @@ export default function DashboardPage() {
             <VariIcon className={`w-5 h-5 ${varColor}`} />
           </div>
           <div>
-            <p className="text-xs text-carbon-200 font-medium">Variación vs período anterior</p>
+            <p className="text-xs text-carbon-800 font-medium">Variación vs período anterior</p>
             {isLoading ? <div className="h-6 w-16 bg-carbon-100 animate-pulse rounded mt-1" /> : (
               <p className={`text-xl font-bold ${varColor}`}>
                 {variacion !== null ? `${variacion > 0 ? '+' : ''}${variacion.toFixed(1)}%` : '—'}
@@ -116,9 +116,9 @@ export default function DashboardPage() {
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <div className="h-40 flex items-center justify-center bg-carbon-50 rounded-xl">
-            <p className="text-sm text-carbon-200">Ejecuta al menos 2 cálculos de huella para ver la tendencia</p>
-          </div>
+            <div className="h-40 flex items-center justify-center bg-carbon-50 rounded-xl">
+            <p className="text-sm text-carbon-800">Ejecuta al menos 2 cálculos de huella para ver la tendencia</p>
+            </div>
         )}
       </div>
 

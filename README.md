@@ -121,7 +121,7 @@ pip install -r requirements.txt
 
 **Credenciales Django Admin**
 
-Email: santi@gmail.com
+Email: juan@gmail.com
 
 Nombre de usuario: santiago
 
@@ -129,4 +129,4 @@ Nombre: Santiago
 
 Apellidos: Zapata
 
-Password: santiago
+Password: 123456

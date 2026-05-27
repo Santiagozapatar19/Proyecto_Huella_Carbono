@@ -91,7 +91,7 @@ export default function RecoleccionPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-carbon-800">Recolección de Datos</h1>
-          <p className="text-carbon-200 mt-1 text-sm">HU-01 al HU-04 · Ingreso manual de fuentes de emisión</p>
+          <p className="text-carbon-800 mt-1 text-sm">HU-01 al HU-04 · Ingreso manual de fuentes de emisión</p>
         </div>
         <button onClick={handleNew} className="btn-primary flex items-center gap-2">
           <Plus className="w-4 h-4" /> Nuevo registro
@@ -119,12 +119,12 @@ export default function RecoleccionPage() {
       {/* Tabla */}
       <div className="card">
         <div className="flex items-center justify-between mb-4">
-          <p className="text-sm text-carbon-200">
+          <p className="text-sm text-carbon-800">
             {Array.isArray(data) ? `${data.length} registros` : ''}
           </p>
           <button
             onClick={() => qc.invalidateQueries({ queryKey: [tab] })}
-            className="p-2 rounded-lg text-carbon-200 hover:text-carbon-800 hover:bg-carbon-50 transition-colors"
+            className="p-2 rounded-lg text-carbon-800 hover:text-carbon-800 hover:bg-carbon-50 transition-colors"
           >
             <RefreshCw className="w-4 h-4" />
           </button>
